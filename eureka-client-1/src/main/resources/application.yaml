@@ -1,0 +1,28 @@
+eureka:
+  client:
+    register-with-eureka: 'true'
+    fetchRegistry: 'true'
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka
+spring:
+  application:
+    name: eureka-client1
+server:
+  port: '8081'
+  
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        slowCallDurationThreshold: '60000'
+        slidingWindowType: COUNT_BASED
+        failureRateThreshold: '50'
+        waitDurationInOpenState: '10s'
+        permittedNumberOfCallsInHalfOpenState: '4'
+        maxWaitDurationInHalfOpenState: '1000'
+        slowCallRateThreshold: '100'
+        minimumNumberOfCalls: '10'
+        slidingWindowSize: '10'
+    instances:
+      fallbackcustom:
+        baseConfig: default
